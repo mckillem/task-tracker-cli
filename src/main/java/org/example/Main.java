@@ -1,18 +1,34 @@
 package org.example;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
-//		Scanner scanner = new Scanner(System.in);
-//		String input = scanner.nextLine();
+		Scanner scannerInput = new Scanner(System.in);
+		String input = scannerInput.nextLine();
 
-//		if (input.equalsIgnoreCase("add")) {
-			File file = createFile("src/main/java/org/example/list.json");
+		LocalDateTime localDateTime = LocalDateTime.now();
+		System.out.println(localDateTime);
 
-			writeToFile(file, true);
-//		}
+		File file = createFile("src/main/java/org/example/list.json");
+
+		if (input.startsWith("add")) {
+
+			String substring = input.substring(4);
+			Task task = new Task(
+					1,
+					substring,
+					"todo",
+					localDateTime
+//					null
+			);
+			writeToFile(file, task, true);
+		}
 
 		try {
 			Scanner scanner = new Scanner(file);
@@ -24,11 +40,13 @@ public class Main {
 		}
 	}
 
-	private static void writeToFile(File file, boolean append) {
+	private static void writeToFile(File file, Task task, boolean append) {
         try {
             FileWriter fileWriter = new FileWriter(file, append);
             PrintWriter writer = new PrintWriter(fileWriter);
-            writer.println("test");
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+			String json = gson.toJson(task);
+            writer.println(json);
             writer.flush();
             writer.close();
         } catch (IOException e) {
