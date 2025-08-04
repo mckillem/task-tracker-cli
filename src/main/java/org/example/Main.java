@@ -1,17 +1,51 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.io.*;
+import java.util.Scanner;
+
 public class Main {
 	public static void main(String[] args) {
-		//TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-		// to see how IntelliJ IDEA suggests fixing it.
-		System.out.printf("Hello and welcome!");
+//		Scanner scanner = new Scanner(System.in);
+//		String input = scanner.nextLine();
 
-		for (int i = 1; i <= 5; i++) {
-			//TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-			// for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-			System.out.println("i = " + i);
+//		if (input.equalsIgnoreCase("add")) {
+			File file = createFile("src/main/java/org/example/list.json");
+
+			writeToFile(file, true);
+//		}
+
+		try {
+			Scanner scanner = new Scanner(file);
+			while (scanner.hasNext()) {
+				System.out.println(scanner.nextLine());
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+	private static void writeToFile(File file, boolean append) {
+        try {
+            FileWriter fileWriter = new FileWriter(file, append);
+            PrintWriter writer = new PrintWriter(fileWriter);
+            writer.println("test");
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+	}
+
+	private static File createFile(String path) {
+		try {
+			File file = new File(path);
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			return file;
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+			throw new IllegalStateException(e);
 		}
 	}
 }
