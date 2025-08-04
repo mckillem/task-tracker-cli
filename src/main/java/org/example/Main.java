@@ -6,6 +6,8 @@ import com.google.gson.GsonBuilder;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.Scanner;
+import java.util.regex.MatchResult;
+import java.util.stream.Stream;
 
 public class Main {
 	public static void main(String[] args) {
@@ -18,7 +20,6 @@ public class Main {
 		File file = createFile("src/main/java/org/example/list.json");
 
 		if (input.startsWith("add")) {
-
 			String substring = input.substring(4);
 			Task task = new Task(
 					1,
@@ -30,13 +31,42 @@ public class Main {
 			writeToFile(file, task, true);
 		}
 
-		try {
-			Scanner scanner = new Scanner(file);
-			while (scanner.hasNext()) {
-				System.out.println(scanner.nextLine());
+		if (input.startsWith("update")) {}
+		if (input.startsWith("delete")) {}
+		if (input.startsWith("mark-in-progress")) {}
+		if (input.startsWith("mark-done")) {}
+
+		if (input.startsWith("list")) {
+			if (input.equalsIgnoreCase("list todo")) {
+				try {
+					Scanner scanner = new Scanner(file);
+//						Stream<MatchResult> status = scanner.findAll("status");
+					String status = scanner.nextLine();
+
+					while (!status.isEmpty())
+					{
+
+					}
+//					System.out.println(status);
+//						if (status.equals("todo")) {
+					if (status.contains("status")) {
+						System.out.println(scanner.nextLine());
+					}
+				} catch (FileNotFoundException e) {
+					System.out.println(e.getMessage());
+				}
+			} else {
+				try {
+					Scanner scanner = new Scanner(file);
+					while (scanner.hasNext()) {
+						System.out.println(scanner.nextLine());
+					}
+				} catch (FileNotFoundException e) {
+					System.out.println(e.getMessage());
+				}
 			}
-		} catch (FileNotFoundException e) {
-			System.out.println(e.getMessage());
+
+
 		}
 	}
 
