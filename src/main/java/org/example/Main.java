@@ -15,7 +15,6 @@ public class Main {
 		String input = scannerInput.nextLine();
 
 		LocalDateTime localDateTime = LocalDateTime.now();
-		System.out.println(localDateTime);
 
 		File file = createFile("src/main/java/org/example/list.json");
 
@@ -38,17 +37,19 @@ public class Main {
 
 		if (input.startsWith("list")) {
 			if (input.equalsIgnoreCase("list todo")) {
+//				todo: potřebuju, aby se podíval, jestli je tam status "todo" a pokud jo, tak vrátil všechny jeho výskyty
 				try {
 					Scanner scanner = new Scanner(file);
-//						Stream<MatchResult> status = scanner.findAll("status");
-					String status = scanner.nextLine();
+						Stream<MatchResult> status = scanner.findAll("status");
+//					String status = scanner.nextLine();
 
-					System.out.println(readFromFile(status));
-					while (!status.isEmpty())
-					{
-
-					}
-//					System.out.println(status);
+//					System.out.println(readFromFile(status));
+//					while (!status.isEmpty())
+//					{
+//
+//					}
+					System.out.println(status.count());
+					System.out.println(status);
 //						if (status.equals("todo")) {
 //					if (status.contains("status")) {
 //						System.out.println(scanner.nextLine());
