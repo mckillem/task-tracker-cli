@@ -25,7 +25,7 @@ public class Main {
 					1,
 					substring,
 					"todo",
-					localDateTime
+					localDateTime.toString()
 //					null
 			);
 			writeToFile(file, task, true);
@@ -43,15 +43,16 @@ public class Main {
 //						Stream<MatchResult> status = scanner.findAll("status");
 					String status = scanner.nextLine();
 
+					System.out.println(readFromFile(status));
 					while (!status.isEmpty())
 					{
 
 					}
 //					System.out.println(status);
 //						if (status.equals("todo")) {
-					if (status.contains("status")) {
-						System.out.println(scanner.nextLine());
-					}
+//					if (status.contains("status")) {
+//						System.out.println(scanner.nextLine());
+//					}
 				} catch (FileNotFoundException e) {
 					System.out.println(e.getMessage());
 				}
@@ -68,6 +69,12 @@ public class Main {
 
 
 		}
+	}
+
+	private static String readFromFile(String status) {
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
+		return gson.fromJson(status, String.class);
 	}
 
 	private static void writeToFile(File file, Task task, boolean append) {

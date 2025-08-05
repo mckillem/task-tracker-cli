@@ -12,10 +12,11 @@ public class Task {
 	@Expose
 	private String status;
 	@Expose
-	private LocalDateTime createdAt;
+//	private LocalDateTime createdAt;
+	private String createdAt;
 //	private LocalDateTime updatedAt;
 
-	public Task(int id, String description, String status, LocalDateTime createdAt) {
+	public Task(int id, String description, String status, String createdAt) {
 		this.id = id;
 		this.description = description;
 		this.status = status;
